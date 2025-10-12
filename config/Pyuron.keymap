@@ -5,13 +5,49 @@
 
 #define MOUSE 6
 
+// OS設定を日本語キーボードのまま使用するための変換定義
+
+#define JP_DQUOTE       AT                // "
+#define JP_AMPERSAND    CARET             // &
+#define JP_QUOTE        AMPERSAND         // '
+#define JP_EQUAL        UNDER             // =
+#define JP_CARET        EQUAL             // ^
+#define JP_YEN          0x89              // ¥
+#define JP_PLUS         COLON             // +
+#define JP_TILDE        PLUS              // ~
+#define JP_PIPE         LS(0x89)          // |
+#define JP_AT           LEFT_BRACKET      // @
+#define JP_COLON        SINGLE_QUOTE      // :
+#define JP_ASTERISK     DOUBLE_QUOTES     // *
+#define JP_BACKQUOTE    LEFT_BRACE        // `
+#define JP_UNDERSCORE   LS(0x87)          // _
+#define JP_LBRACKET     RIGHT_BRACKET     // [
+#define JP_RBRACKET     BACKSLASH         // ]
+#define JP_LPAREN       ASTERISK          // (
+#define JP_RPAREN       LEFT_PARENTHESIS  // )
+#define JP_LBRACE       RIGHT_BRACE       // {
+#define JP_RBRACE       PIPE              // }
+#define JP_KANA         LANGUAGE_1        // かな
+#define JP_EISU         LANGUAGE_2        // 英数
+#define JP_HANZEN       GRAVE             // 半角/全角
+
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
 };
 
 / {
-    combos { compatible = "zmk,combos"; };
+    combos { compatible = "zmk,combos"; 
+        COMBO_En {
+            bindings = <&kp LANGUAGE_2>;
+            key-positions = <35 36>;
+        };
+
+        COMBO_Jn {
+            bindings = <&kp LANGUAGE_1>;
+            key-positions = <37 38>;
+        };
+    };
 
     macros {
         to_layer_0: to_layer_0 {
@@ -50,18 +86,18 @@
 
         layer_1 {
             bindings = <
-&bt BT_SEL 0  &kp F1  &kp F2        &kp F3        &kp F4     &kp N7        &kp N8          &kp N9        &kp PLUS      &kp MINUS
-&bt BT_SEL 1  &kp F5  &kp F6        &kp F7        &kp F8     &kp NUMBER_4  &kp N5          &kp NUMBER_6  &kp ASTRK     &kp SLASH
+&bt BT_SEL 0  &kp F1  &kp F2        &kp F3        &kp F4     &kp N7        &kp N8          &kp N9        &kp JP_PLUS      &kp MINUS
+&bt BT_SEL 1  &kp F5  &kp F6        &kp F7        &kp F8     &kp NUMBER_4  &kp N5          &kp NUMBER_6  &kp JP_ASTERISK     &kp SLASH
 &bt BT_SEL 2  &kp F9  &kp F10       &kp F11       &kp F12    &bt BT_CLR    &bt BT_CLR_ALL  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3
-&kp PERIOD    &kp N0  &bt BT_SEL 3  &bt BT_SEL 4  &kp SPACE  &kp DELETE    &kp BACKSPACE   &kp ENTER     &kp EQUAL     &kp ESCAPE
+&kp PERIOD    &kp N0  &bt BT_SEL 3  &bt BT_SEL 4  &kp SPACE  &kp DELETE    &kp BACKSPACE   &kp ENTER     &kp JP_EQUAL     &kp ESCAPE
             >;
         };
 
         layer_2 {
             bindings = <
-&kp AT_SIGN     &kp LEFT_BRACE   &kp RIGHT_BRACE    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp CARET    &kp EXCLAMATION  &kp PIPE   &kp GRAVE             &trans
-&kp HASH        &kp SQT          &kp DOUBLE_QUOTES  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PERCENT  &kp AMPERSAND    &kp TILDE  &kp UP                &kp UNDERSCORE
-&kp DOLLAR      &kp COLON        &kp SEMICOLON      &kp LESS_THAN         &kp GREATER_THAN       &trans       &trans           &kp SLASH  &kp NON_US_BACKSLASH  &kp LEFT_ARROW
+&kp JP_AT     &kp JP_LBRACE   &kp JP_RBRACE    &kp JP_LPAREN  &kp JP_RPAREN  &kp JP_CARET    &kp EXCLAMATION  &kp JP_PIPE   &kp JP_BACKQUOTE             &trans
+&kp HASH        &kp JP_QUOTE          &kp JP_DQUOTE  &kp JP_LBRACKET      &kp JP_RBRACKET      &kp PERCENT  &kp JP_AMPERSAND    &kp JP_TILDE  &kp UP_ARROW                &kp JP_UNDERSCORE
+&kp DOLLAR      &kp JP_COLON        &kp SEMICOLON      &kp LESS_THAN         &kp GREATER_THAN       &trans       &trans           &kp SLASH  &kp JP_YEN  &kp LEFT_ARROW
 &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp LCTRL          &kp LSHIFT            &kp SPACE              &kp DELETE   &trans           &trans     &kp TAB               &kp ESCAPE
             >;
         };
